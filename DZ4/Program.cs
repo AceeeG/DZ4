@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -10,7 +11,7 @@ namespace DZ4
 {
     internal class Program
     {
-        static void Maxim(int a, int b)
+        static void CalculateMaxim(int a, int b)
         {
             int result = Math.Max(a, b);
             if (a == b)
@@ -33,7 +34,7 @@ namespace DZ4
 
         }
 
-        static void Factorial(out int i)//через цикл, так как следующее задание требуют через рекурсию
+        static void CalculateFactorial(out int i)//через цикл, так как следующее задание требуют через рекурсию
         {
             int maxvalue = int.MaxValue;
             int f = Convert.ToInt32(Console.ReadLine());
@@ -56,7 +57,7 @@ namespace DZ4
             }
 
         }
-        static int Recursive_Fac(int num)//через рекурсию
+        static int CalculateRecursive_Fac(int num)//через рекурсию
         {
             if (num == 1 || num == 0)
             {
@@ -64,10 +65,10 @@ namespace DZ4
             }
             else
             {
-                return num * Recursive_Fac(num - 1);
+                return num * CalculateRecursive_Fac(num - 1);
             }
         }
-        static int NOD(int a, int b)
+        static int GetNOD(int a, int b)
         {
             if (a != 0 && b != 0)
             {
@@ -83,6 +84,24 @@ namespace DZ4
             else
                 return a + b;
         }
+        static int GetNOD(int a, int b, int c)
+        {
+            if ((a != 0 && b != 0 && c != 0))
+                return GetNOD(GetNOD(a, b), c);
+            else
+                return a + b + c;
+        }
+
+        static int GetFib(int n)
+        {
+            int[] array = new int[100];
+            if (n <= 1)
+                return 1;
+            else if (array[n] != 0)
+                return array[n];
+            array[n] = GetFib(n - 2) + GetFib(n - 1);
+            return array[n];
+        }
 
         static void Main(string[] args)
         {
@@ -91,7 +110,7 @@ namespace DZ4
             int a  = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите второе число: \n");
             int b = Convert.ToInt32(Console.ReadLine());
-            Maxim(a, b);
+            CalculateMaxim(a, b);
             Console.WriteLine("Упражнение 2\nВведите 1 число\n");
             int num1 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите 2 число\n");
@@ -99,10 +118,10 @@ namespace DZ4
             Swap(num1, num2);
             Console.WriteLine("Упранение 3 - поиск факториала\nВведите целое число\n");
             int f;
-            Factorial(out f);
+            CalculateFactorial(out f);
             Console.WriteLine("Упражнение 4 - поиск факториала программой, написанной рекурсивным способом\nВведите целое число: \n");
             int num = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"Факториал = {Recursive_Fac(num)}");
+            Console.WriteLine($"Факториал = {CalculateRecursive_Fac(num)}");
             
 
 
@@ -110,8 +129,17 @@ namespace DZ4
             int a1 = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите 2 число\n");
             int b1 = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"Наибольший общий делитель для чисел {a1} и {b1} это: {NOD(a1, b1)}\n");
-
+            Console.WriteLine($"Наибольший общий делитель для чисел {a1} и {b1} это: {GetNOD(a1, b1)}\n");
+            Console.WriteLine("Теперь проверим метод для 3 чисел\nВведите 1 число:\n");
+            int number1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите 2 число:\n");
+            int number2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите 3 число:\n");
+            int number3 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Наибольший общий делитель для чисел {number1}, {number2} и {number3} это {GetNOD(number1, number2, number3)}\n");
+            Console.WriteLine("Домашнее задание 2 - вычисление н-ного числа в ряде Фибоначчи\nВведите номер числа который хотите найти:\n");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Числом под номером {n} является {GetFib(n)}");
 
 
             Console.ReadKey();
