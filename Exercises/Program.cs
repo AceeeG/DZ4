@@ -22,12 +22,13 @@ namespace Exercises
             public int bruises;
             public void GrandmaPunches(params string[] swearword)
             {
-                foreach (string word in swearword)
+                if(swearword.Length == null || swearword.Length == 0) 
                 {
-                    if (Array.IndexOf(swearword, word.ToLower()) != -1)
-                    {
-                        bruises++;
-                    }
+                    bruises = 0;
+                }
+                else
+                {
+                    bruises += swearword.Length;
                 }
             }
             static int CalculateAVG(ref int multiply, out double average, params int[] array)
@@ -191,14 +192,14 @@ namespace Exercises
                 Grandpa Serdzhua = new Grandpa();
                 string serdzhua_name = "Серджуа";
                 GrumpyLevel serdzhua_grumpy = GrumpyLevel.Мужик;
-                string[] serdzhua_swearword = { };
+                string[] serdzhua_swearword = {"Су#а"};
                 int serdzhua_bruises = 0;
                 Serdzhua.GrandmaPunches(Serdzhua.swearword);
 
                 Grandpa Sherhan = new Grandpa();
                 string sherhan_name = "Шерхан";
                 GrumpyLevel sherhan_grumpy = GrumpyLevel.Мужик;
-                string[] sherhan_swearword = { };
+                string[] sherhan_swearword = {"Г#$@дон"};
                 int sherhan_bruises = 0;
                 Sherhan.GrandmaPunches(Sherhan.swearword);
                 Console.WriteLine($"У деда {Anzor.name} {Anzor.bruises} фингалов.\n" +
