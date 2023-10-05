@@ -8,6 +8,14 @@ namespace Exercises
 {
     internal class Program
     {
+        static bool IsItemInArray(int[] array, int value)
+        {
+            foreach (int item in array)
+            {
+                if (item == value) return true;
+            }
+            return false;
+        }
         enum GrumpyLevel
         {
             Поехавший,
@@ -27,14 +35,14 @@ namespace Exercises
                 this.swearword = swearword;
                 this.bruises = 0;
             }
-            public int GrandmaPunches(params string[] swearwords)
+            public int GrandmaPunches(params string[] all_swearwords)
             {
                 int counter = 0;
-                foreach (string phrase in swearword)
+                foreach (string word in swearword)
                 {
-                    foreach (string el in swearwords)
+                    foreach (string words in all_swearwords)
                     {
-                        if (phrase.Contains(el)) 
+                        if (word.Contains(words)) 
                             counter++;
                     }
                 }
@@ -119,14 +127,17 @@ namespace Exercises
                 int num1 = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Введите второе число\n");
                 int num2 = Convert.ToInt32(Console.ReadLine());
-                for (int i = 0; i < array.Length; i++)
+                if (IsItemInArray(array, num1) && IsItemInArray(array, num2))
                 {
-                    if (array[i] == num1)
-                        array[i] = num2;
-                    else if (array[i] == num2)
-                        array[i] = num1;
-                    else
-                        array[i] = array[i];
+                    (array[Array.IndexOf(array, num1)], array[Array.IndexOf(array, num2)]) = (array[Array.IndexOf(array, num2)], array[Array.IndexOf(array, num1)]);
+                    Console.WriteLine($"Новый массив: {array[0]}, {array[1]}, {array[2]}, {array[3]}, {array[4]}, {array[5]}, {array[6]}, {array[7]}," +
+                                        $" {array[8]},{array[9]}, {array[10]}, {array[11]}, " +
+                                        $"{array[12]}, {array[13]}, {array[14]}, {array[15]}, " +
+                                        $"{array[16]}, {array[17]}, {array[18]}, {array[19]}\n");
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели числа, которых нет в массивах\n");
                 }
                 Console.WriteLine($"Новый массив: {array[0]}, {array[1]}, {array[2]}, {array[3]}, {array[4]}, {array[5]}, {array[6]}, {array[7]}," +
                     $" {array[8]},{array[9]}, {array[10]}, {array[11]}, " +
@@ -177,54 +188,56 @@ namespace Exercises
 
                 Console.WriteLine("4 задание - деды ругаются матом.\n");
 
-                string[] all_swearwords = { "Дурной п#№ды ребенок", "Я твой роутер е№@*", "Инвалид еба№#%ый", "Сын шайки фашистов", "Ошпарил х№#", "Ва#$%@льный дебошир",
-                "Таких бл#@! убивал в своё время", "Под шконку н$@#й", "Я вам кадыки сломаю", "Вы б№@ знаете какие я темки мутил в молодости",};
                 string[] anzor_words = { "Дурной п#№ды ребенок", "Я твой роутер е№@*", "Инвалид еба№#%ый", "Сын шайки фашистов", "Су#а" };
                 string[] vahid_words = { "Ошпарил х№#", "Ва#$%@льный дебошир", };
                 string[] abdulbori_words = { "Таких бл#@! убивал в своё время", "Под шконку н$@#й", "Я вам кадыки сломаю", "Вы б№@ знаете какие я темки мутил в молодости" };
-                string[] serdzhua_words = { "Су#а" };
+                string[] serdzhua_words = {"Блин"};
                 string[] sherhan_words = {"Негодяи"}; //он не получит синяк, так как это безобидное ругательство
 
                 Grandpa Anzor = new Grandpa();
-                string anzor_name = "Анзор";
-                GrumpyLevel anzor_grumpy = GrumpyLevel.Поехавший;
-                string[]anzor_swearword = anzor_words;
-                int anzor_bruises = 0;
-                Anzor.GrandmaPunches(all_swearwords);
+                Anzor.name = "Анзор";
+                Anzor.grumpy = GrumpyLevel.Поехавший;
+                Anzor.swearword = anzor_words;
+                Anzor.bruises = 0;
+
 
 
                 Grandpa Vahid = new Grandpa();
-                string vahid_name = "Вахид";
-                GrumpyLevel vahid_grumpy = GrumpyLevel.Ворчун;
-                string[] vahid_swearword = vahid_words;
-                int vahid_bruises = 0;
-                Vahid.GrandmaPunches(all_swearwords);
+                Vahid.name = "Вахид";
+                Vahid.grumpy = GrumpyLevel.Ворчун;
+                Vahid.swearword = vahid_words;
+                Vahid.bruises = 0;
+
 
                 Grandpa Abdulbori = new Grandpa();
-                string abdulbori_name = "Абдулборий";
-                GrumpyLevel abdulbori_grumpy = GrumpyLevel.Поехавший;
-                string[] abdulbori_swearword = abdulbori_words;
-                int abdulbori_bruises = 0;
-                Abdulbori.GrandmaPunches(all_swearwords);
+                Abdulbori.name = "Абдулборий";
+                Abdulbori.grumpy = GrumpyLevel.Поехавший;
+                Abdulbori.swearword = abdulbori_words;
+                Abdulbori.bruises = 0;
+
 
                 Grandpa Serdzhua = new Grandpa();
-                string serdzhua_name = "Серджуа";
-                GrumpyLevel serdzhua_grumpy = GrumpyLevel.Мужик;
-                string[] serdzhua_swearword = serdzhua_words;
-                int serdzhua_bruises = 0;
-                Serdzhua.GrandmaPunches(all_swearwords);
+                Serdzhua.name = "Серджуа";
+                Serdzhua.grumpy = GrumpyLevel.Мужик;
+                Serdzhua.swearword = serdzhua_words;
+                Serdzhua.bruises = 0;
+
 
                 Grandpa Sherhan = new Grandpa();
-                string sherhan_name = "Шерхан";
-                GrumpyLevel sherhan_grumpy = GrumpyLevel.Мужик;
-                string[] sherhan_swearword = sherhan_words;
-                int sherhan_bruises = 0;
-                Sherhan.GrandmaPunches(all_swearwords);
-                Console.WriteLine($"У деда {Anzor.name} получил {Anzor.GrandmaPunches(all_swearwords)} фингалов.\n" +
-                    $"У деда {Vahid.name} получил {Vahid.GrandmaPunches(all_swearwords)} фингалов.\n" +
-                    $"У деда {Abdulbori.name} получил {Abdulbori.GrandmaPunches(all_swearwords)} фингалов.\n" +
-                    $"У деда {Serdzhua.name} получил {Serdzhua.GrandmaPunches(all_swearwords)} фингалов.\n" +
-                    $"У деда {Sherhan.name} получил {Sherhan.GrandmaPunches(all_swearwords)} фингалов.\n");
+                Sherhan.name = "Шерхан";
+                Sherhan.grumpy = GrumpyLevel.Мужик;
+                Sherhan.swearword = sherhan_words;
+                Sherhan.bruises = 0;
+
+
+                string[] all_swearwords = {"Дурной п#№ды ребенок", "Я твой роутер е№@*", "Инвалид еба№#%ый", "Сын шайки фашистов", "Ошпарил х№#", "Ва#$%@льный дебошир",
+                "Таких бл#@! убивал в своё время", "Под шконку н$@#й", "Я вам кадыки сломаю", "Вы б№@ знаете какие я темки мутил в молодости",};
+
+                Console.WriteLine($"Дед {Anzor.name} получил {Anzor.GrandmaPunches(all_swearwords)} фингалов.\n" +
+                    $"Дед {Vahid.name} получил {Vahid.GrandmaPunches(all_swearwords)} фингалов.\n" +
+                    $"Дед {Abdulbori.name} получил {Abdulbori.GrandmaPunches(all_swearwords)} фингалов.\n" +
+                    $"Дед {Serdzhua.name} получил {Serdzhua.GrandmaPunches(all_swearwords)} фингалов.\n" +
+                    $"Дед {Sherhan.name} получил {Sherhan.GrandmaPunches(all_swearwords)} фингалов.\n");
 
 
                 Console.ReadKey();
